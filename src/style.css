@@ -1,3 +1,15 @@
+@font-face {
+  font-family: rly;
+  src: url(/fonts/raleway.regular.ttf);
+}
+@font-face {
+  font-family: rlysb;
+  src: url(/fonts/raleway.semibold.ttf);
+}
+@font-face {
+  font-family: rlym;
+  src: url(/fonts/raleway.medium.ttf);
+}
 * {
   margin: 0;
   padding: 0;
@@ -16,9 +28,63 @@ html,body {
 body {
   scrollbar-width: none;
   -ms-overflow-style: none;
-  background-color: #E2E2E1;
+  background-color: rgb(24 24 27);
 }
 .main {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.canvas {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+.images {
+  position: absolute;
+  width: 25vw;
+  height: 32vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.linkscontainer {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vw;
+}
+a {
+  text-decoration: none;
+  opacity: 0.3;
+  display: block;
+  font-size: 4.5vw;
+  color: #f8f8f8;
+  text-transform: lowercase;
+  letter-spacing: -2px;
+  transition: all 0.3s ease-in-out;
+  font-family: rlym;
+}
+a:hover {
+  opacity: 1;
+  margin-left: 2vw;
+}
+small {
+  font-size: 2vw;
+  letter-spacing: 1px;
+  font-family: rly;
 }
