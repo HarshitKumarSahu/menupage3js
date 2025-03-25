@@ -10,5 +10,10 @@
   },
   "devDependencies": {
     "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "gsap": "^3.12.7",
+    "imagesloaded": "^5.0.0",
+    "three": "^0.174.0"
   }
 }
