@@ -43,7 +43,7 @@ body {
   height: 100%;
 }
 .images {
-  position: absolute;
+  position: relative;
   width: 25vw;
   height: 32vw;
   top: 50%;
@@ -56,6 +56,7 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  opacity: 0;
 }
 .linkscontainer {
   display: flex;
@@ -87,6 +88,12 @@ small {
   font-size: 2vw;
   letter-spacing: 1px;
   font-family: rly;
+}
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 
 @media screen and (max-width:600px) {
