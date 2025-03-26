@@ -2,6 +2,7 @@ import * as THREE from "three";
 // import { uniform } from "three/tsl";
 import vertex from "../shaders/vertex.glsl";
 import fragment from "../shaders/fragment.glsl"
+import gsap from "gsap";
 
 class Site {
     constructor({dom}) {
@@ -37,8 +38,9 @@ class Site {
 
         this.addImages();
         this.setPosition();
-        this.resize()
-        this.setupResize()
+        this.resize();
+        this.setupResize();
+        this.hoverOverLinks();
         this.render();
     }
 
@@ -71,7 +73,13 @@ class Site {
 
         const uniform = {
             uTime : { value : 0 },
-            uImages : { value : textures[0]},
+            uTimeline : { value : 0.2 },
+            uStartIndex : { value : 0 },
+            uEndIndex : { value : 1 },
+            uImages1 : { value : textures[0]},
+            uImages2 : { value : textures[1]},
+            uImages3 : { value : textures[2]},
+            uImages4 : { value : textures[3]},
         }
 
         this.material = new THREE.ShaderMaterial({
@@ -99,8 +107,56 @@ class Site {
         })
     }
 
+    // hoverOverLinks() {
+    //     const links = document.querySelectorAll(".links a");
+    //     links.forEach((link , i) => {
+    //         link.addEventListener("mousemove", (e)=>{
+    //             this.material.uniforms.uTimeline.value = 0.0;
+
+    //             gsap.to(this.material.uniforms.uTimeline, {
+    //                 value: 4.0,
+    //                 duration: 1.2,
+    //                 onStart : () => {
+    //                     this.uEndIndex = i;
+    //                     this.material.uniforms.uStartIndex.value = this.uStartIndex;
+    //                     this.material.uniforms.uEndIndex.value = this.uEndIndex;
+    //                     this.uStartIndex = this.uEndIndex;
+    //                 }
+    //             })
+    //         })
+    //     })
+    // }
+    hoverOverLinks() {
+        const links = document.querySelectorAll(".links a");
+        links.forEach((link, i) => {
+            link.addEventListener("mouseenter", (e) => {
+                if (i === this.uStartIndex) return;
+                gsap.to(this.material.uniforms.uTimeline, {
+                    value: 4.0, // Move timeline to fade out old image
+                    duration: 2,
+                    onStart: () => {
+                        this.uEndIndex = i;
+                        this.material.uniforms.uStartIndex.value = this.uStartIndex;
+                        this.material.uniforms.uEndIndex.value = this.uEndIndex;
+                        this.uStartIndex = this.uEndIndex;
+                    },
+                    // onComplete: () => {
+                    //     this.material.uniforms.uTimeline.value =0.2
+                    //     this.uEndIndex = i;
+                    //     this.material.uniforms.uStartIndex.value = this.uStartIndex;
+                    //     this.material.uniforms.uEndIndex.value = this.uEndIndex;
+                    //     this.uStartIndex = this.uEndIndex;
+                    // }
+                });
+                this.material.uniforms.uTimeline.value = 0.2;
+            });
+        });
+    }
+    
+
     render() {
-        this.time++;
+        this.time+= 0.1;
+        this.material.uniforms.uTime.value = this.time; 
         this.renderer.render( this.scene, this.camera );
         window.requestAnimationFrame(this.render.bind(this));
     }
