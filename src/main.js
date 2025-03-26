@@ -165,3 +165,49 @@ class Site {
 new Site({
     dom : document.querySelector(".canvas"),
 });
+
+
+const mouseFollower = document.querySelector("#mouseFollower");
+const links = document.querySelectorAll(".links a");
+const imgCont = document.querySelector(".images");
+
+document.addEventListener("mousemove", (e) => {
+    gsap.to(mouseFollower, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.2,
+        ease: "linear",
+    });
+});
+
+links.forEach((link, i) => {
+    link.addEventListener("mouseenter", (e) => {
+        gsap.to(mouseFollower, {
+            width : "6vw",
+            height : "6vw",
+            duration: 0.5
+        })
+    });
+    link.addEventListener("mouseleave", (e) => {
+        gsap.to(mouseFollower, {
+            width : "1.5vw",
+            height : "1.5vw",
+            duration: 0.5
+        })
+    });
+});
+
+imgCont.addEventListener("mouseenter", (e) => {
+    gsap.to(mouseFollower, {
+        width : "10vw",
+        height : "10vw",
+        duration: 0.5
+    })
+});
+imgCont.addEventListener("mouseleave", (e) => {
+    gsap.to(mouseFollower, {
+        width : "1.5vw",
+        height : "1.5vw",
+        duration: 0.5
+    })
+});
